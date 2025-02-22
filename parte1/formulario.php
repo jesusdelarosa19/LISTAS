@@ -1,5 +1,34 @@
+<?php
+# Código de BUSCAR
+
+$GLOBALS['$name'] = "";
+$GLOBALS['$email'] = "";
+$GLOBALS['$phone'] = "";
 
 
+if (isset($_POST['buscar'])) {
+	
+	$name=$_POST['name'];
+
+	$query = $cnnPDO->prepare('SELECT * from usuarios WHERE name =:name');
+	$query->bindParam(':name', $name);
+	
+	$query->execute(); 
+	$count=$query->rowCount();
+	$campo = $query->fetch();
+
+	if($count)	{	
+		$GLOBALS['$name'] = $campo['name'];			
+		$GLOBALS['$email'] = $campo['email'];
+		$GLOBALS['$phone'] = $campo['phone'];
+	
+	} 
+	else
+		$GLOBALS['$name'] = "";	
+
+}
+# Termina Código de BUSCAR
+?>
 
 
 <!DOCTYPE html>
