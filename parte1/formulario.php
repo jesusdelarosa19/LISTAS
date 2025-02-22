@@ -28,6 +28,50 @@ if (isset($_POST['buscar'])) {
 
 }
 # Termina Código de BUSCAR
+
+# Inicia Código de EDITAR o MODIFICAR
+
+if (isset($_POST['editar'])) 
+{  
+	$name=$_POST['name'];
+	$email=$_POST['email'];
+	
+	
+	if (!empty($name) && !empty($email))
+	{  
+		$sql = $cnnPDO->prepare(
+			'UPDATE usuarios SET email = :email WHERE name = :name'
+		);
+		
+		$sql->bindParam(':name',$name);
+		$sql->bindParam(':email',$email);
+		
+
+		$sql->execute();
+		unset($sql);
+		unset($cnnPDO);
+	}
+}
+# Termina Código de EDITAR o MODIFICAR
+?>
+
+<?php
+# Código de ELIMINAR
+
+if (isset($_POST['eliminar'])) {
+	
+	$name=$_POST['name'];
+
+	if (!empty($name)){
+		$query = $cnnPDO->prepare('DELETE from usuarios WHERE name =:name');
+		$query->bindParam(':name', $name);
+		
+		$query->execute(); 
+	}
+	
+
+}
+# Termina Código de ELIMINAR
 ?>
 
 
